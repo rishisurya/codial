@@ -3,7 +3,7 @@ module.exports.like = function(request,response){
     return response.render('likes',{
         title:'Post Like'
     });
-};
+}
 
 module.exports.comment = function(request,response){
     // response.end('<H1>User post is liked</H1>');
