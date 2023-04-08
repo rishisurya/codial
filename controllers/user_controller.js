@@ -43,7 +43,6 @@ module.exports.create = function(request,response){
 
 // signin and create a session for user
 module.exports.createSession = function(request,response){
-    debugger
     return response.redirect('/');
 };
 

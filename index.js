@@ -25,7 +25,6 @@ const passportLocal = require('./config/passport-local-strategy');
 
 
 
-
 // middileware to get form data
 app.use(express.urlencoded({ extended: false }));
 app.use(express.urlencoded());

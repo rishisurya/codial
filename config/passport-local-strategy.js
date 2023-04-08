@@ -5,14 +5,13 @@ const User = require('../models/user');
 
 //authenticate using passport
 passport.use(new LocalStrategy(
-    {
-    usernameFeild : 'email',
-    passwordField: 'passwd',
-    session: false
-    },
+    // {
+    // usernameFeild : 'email',
+    // passwordField: 'passwd',
+    // session: false
+    // },
     function(email,password,done){
         // finding the user in the db
-        debugger
         console.log('came');
         User.find({email:email})
         .then((user)=>{
@@ -41,3 +40,4 @@ passport.deserializeUser(function(id,done){
 });
 
 console.log('passport is working');
+module.exports = passport;
