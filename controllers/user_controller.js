@@ -13,12 +13,18 @@ module.exports.profile = function(request,response){
 
 // rendering signup page
 module.exports.signup = function(request,response){
+    if(request.isAuthenticated()){
+        return response.redirect('/user/profile')
+    };
     return response.render('signup',{
         title:'Sign Up'
     });
 };
 //render signin page
 module.exports.signin = function(request,response){
+    if(request.isAuthenticated()){
+        return response.redirect('/user/profile')
+    };
     return response.render('signin',{
         title:'Sign in'
     });
@@ -48,8 +54,8 @@ module.exports.createSession = function(request,response){
 
 // handling signout
 module.exports.signout = function(request,response){
-    response.clearCookie("user_id");
-    return response.redirect('/user/signin');
+    request.logout();
+    return response.redirect('/');
 }
 
 

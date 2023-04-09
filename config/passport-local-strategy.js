@@ -12,14 +12,9 @@ passport.use(
             usernameField: "email",
         },
         function (email, password, done) {
-            console.log(email);
-            console.log(password);
             User.find({ email: email })
                 .then((user) => {
-                    console.log("inside then");
-                    console.log(user);
                     console.log(user[0].password);
-                    console.log(password);
                     if (!user || user[0].password !== password) {
                         console.log("Invalid username and password");
                         return done(null, false);
@@ -44,13 +39,32 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (id, done) {
     User.findById(id)
         .then((user) => {
-            console.log(user);
             return done(null, user);
         })
         .catch((err) => {
-            crossOriginIsolated.log("Error in finding user---> passport");
+            console.log("Error in finding user---> passport");
             return done(err);
         });
 });
 
+
+// check if the user is authenticated
+passport.checkAuthentication = function(request,response,next){
+       // if the user is signed in, then pass on the request to the next function(controller's action)
+    if(request.isAuthenticated()){
+        return next();
+        
+    }
+       // if the user is not signed in
+    return response.redirect('/user/signin');
+};
+
+passport.setAuthenticatedUser = function(request,response,next){
+    if(request.isAuthenticated()){
+         // req.user contains the current signed in user from the session cookie and we are just sending this to the locals for the views
+        response.locals.user = request.user;
+
+    }
+    next();
+}
 module.exports = passport;

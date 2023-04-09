@@ -1,6 +1,6 @@
 
 module.exports.home = function(request,response){
-    console.log(request.cookies);
+    // console.log(request.cookies);
     // to alter cookies
     //response.cookie('surya',100);
     return response.render('home',{

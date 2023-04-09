@@ -2,4 +2,13 @@
     <center><h1 style="color: white;">
         Page Heading
     </h1></center>
+    <ul>
+        <%if(locals.user){%>
+        <a href="/user/profile"><%=user.name%></a>
+        <li><a href="/user/signout" style="color: white;">Sign Out</a></li>
+        <%}else{%>
+            <li><a href="/user/signin" style="color: white;">Sign In</a></li>
+            <li><a href="/user/signup" style="color: white;">Sign Up</a></li>
+            <%}%>
+    </ul>
 </header>
