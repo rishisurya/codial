@@ -1,0 +1,18 @@
+body{
+    background-color: lightcoral;
+    color: whitesmoke;
+    text-align: center;
+    #post_feed{
+    text-align: start;     
+    ul{
+        border: 2px white dashed;
+        li{
+            border: 2px brown solid; 
+            margin: 10px 3px;
+            padding: 5px;
+            padding-left: 10px;
+        }
+    }       
+    }
+
+}

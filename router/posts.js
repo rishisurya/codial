@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const postController = require('../controllers/user_post_controller');
+const passport = require('passport');
 
-router.get('/like',postController.like);
+const post_controller =  require('../controllers/posts_controller');
 
-console.log('post router is loaded')
+router.post('/create',passport.checkAuthentication,post_controller.create);
 module.exports = router;

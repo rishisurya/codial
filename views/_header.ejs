@@ -4,7 +4,7 @@
     </h1></center>
     <ul>
         <%if(locals.user){%>
-        <a href="/user/profile"><%=user.name%></a>
+        <a href="/user/profile" style="color: white; text-decoration: solid;"><%=user.name%></a>
         <li><a href="/user/signout" style="color: white;">Sign Out</a></li>
         <%}else{%>
             <li><a href="/user/signin" style="color: white;">Sign In</a></li>

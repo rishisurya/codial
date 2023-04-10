@@ -1,15 +1,33 @@
 
 <head>
-
-    <style>
-        body{
-            background-color: lightcoral;
-            color: whitesmoke;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
     <h1>Codeial home page</h1>
+
+    <%if(locals.user){%>
+    <section id="post-form">
+        <h4>Posts</h4>
+        <form action="/posts/create" id="new=post-form" method="post">
+            <textarea name="content"  cols="30" rows="3" placeholder="Type here...."></textarea>
+            <input type="submit" value="Post">
+        </form>
+    </section>
+    <%}%>
+
+    <%if(locals.user){%>
+    <section id="post_feed">
+        <ul>
+            <% for(let i of posts){%>
+            <p>
+            <li>
+                <span> Name : <%= i.user.name %></span>
+                <br>
+                <span> Content: <%= i.content %></span>
+            </li></p>
+            <%}%>
+        </ul>
+    </section>
+    <%}%>
 </body>
 </html>

@@ -1,0 +1,20 @@
+body {
+  background-color: lightcoral;
+  color: whitesmoke;
+  text-align: center;
+}
+
+body #post_feed {
+  text-align: start;
+}
+
+body #post_feed ul {
+  border: 2px white dashed;
+}
+
+body #post_feed ul li {
+  border: 2px brown solid;
+  margin: 10px 3px;
+  padding: 5px;
+  padding-left: 10px;
+}
