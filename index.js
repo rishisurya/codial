@@ -24,7 +24,15 @@ const passportLocal = require('./config/passport-local-strategy');
 
 // importing connectmongo
 const mongoStore = require('connect-mongo')(session);
+const sassMiddileware = require('node-sass-middleware');
 
+app.use(sassMiddileware({
+    src:'./assets/scss',
+    dest:'./assets/css',
+    debug:true,
+    outputStyle:'expanded',
+    prefix:'/css'
+}));
 
 
 

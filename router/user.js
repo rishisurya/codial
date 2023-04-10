@@ -21,7 +21,7 @@ router.post('/create-session', passport.authenticate(
     // successRedirect:'/user/profile'
 },
 ), userController.createSession);
-
+router.post('/signout',userController.signout);
 router.get('/signout',userController.signout);
 
 console.log('user router is loaded');
