@@ -1,4 +1,4 @@
-<header style="background-color: brown;">
+<!-- <header style="background-color: brown;">
     <center><h1 style="color: white;">
         Page Heading
     </h1></center>
@@ -11,4 +11,43 @@
             <li><a href="/user/signup" style="color: white;">Sign Up</a></li>
             <%}%>
     </ul>
+</header>
+ -->
+
+ 
+
+<header id="layout-header">
+    <nav>
+        <div class="mini-logo">
+            <p>
+                <a href='/'>
+                    codeial
+                </a>
+            </p>
+        </div>
+    
+        <div class="auth-links">
+            <ul>
+                <% if (locals.user){ %>
+                <li>
+                    <a href="/user/profile"><%= user.name %></a>
+                </li>
+                <li>
+                    <a href="/user/signout">Sign Out</a>
+                </li>
+                <% }else{ %>
+                <li>
+                    <a href="/user/signin">Sign In</a>
+                </li>
+                <li>
+                    <a href="/user/signup">Sign Up</a>
+                </li>
+        
+                <% } %>
+            </ul>
+        </div>
+    </nav>
+ 
+
+
 </header>
