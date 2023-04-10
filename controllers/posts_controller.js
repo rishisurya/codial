@@ -11,8 +11,8 @@ module.exports.create = function(request,response){
         )
     .catch(
         (err)=>{
-            console.logh('Error in crating a post'); 
+            console.log('Error in crating a post'); 
             return;
         }
         )
-}
+};

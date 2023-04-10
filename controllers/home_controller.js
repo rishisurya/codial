@@ -1,4 +1,4 @@
-const Posts = require('../models/post');
+const Post = require('../models/post');
 
 module.exports.home = function(request,response){
     // console.log(request.cookies);
@@ -12,12 +12,37 @@ module.exports.home = function(request,response){
     //     posts: Posts
     // })).catch((err)=>console.log('Error in fetching from db'))
 
-    // with preporlation of user of each post
-    Posts.find({}).populate('user')
-    .then((posts)=>{
+
+
+    // // with pre-population of user of each post
+    // Post.find({}).populate('user')
+    //  .then((post)=>{
+    //     return response.render('home',{
+    //         title:"Home Page",
+    //         post: post
+    //     })
+    // })
+    // .catch((err)=>{
+    //     console.log('Error in fetchting data drom db');
+    //      return ;
+    //     }
+    // )
+    // };
+
+
+    // nested-populating
+    Post.find({})
+    .populate('user')
+    .populate({
+        path:'comments',
+        populate:{
+            path:'user'
+        }
+    })
+     .then((post)=>{
         return response.render('home',{
             title:"Home Page",
-            posts : posts
+            posts: post
         })
     })
     .catch((err)=>{
@@ -26,7 +51,6 @@ module.exports.home = function(request,response){
         }
     )
     };
-
 
 module.exports.thanks = function(request,response){
     response.end('<h1> Welcome to the Thanks page</h1>')
