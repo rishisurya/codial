@@ -26,3 +26,18 @@ module.exports.create = function(request,response){
         return response.redirect('back');
     })
 };
+
+
+module.exports.destroy = function(request,response){
+    Comment.findById(request.params.id)
+    .then((comment)=>{
+        if(comment && comment.user == request.user.id){
+            let postid = comment.post;
+            comment.remove();
+            Post.findByIdAndUpdate('postid',{$pull:{comments:request.params.id}})
+            .then(()=>{return response.redirect('back')})
+            .catch((err)=>{return response.redirect('back')})
+        }else{return response.redirect('back')}
+    })
+    .catch((err)=>{return response.redirect('back')})
+};

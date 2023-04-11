@@ -1,11 +1,10 @@
 
-<head>
-    <link rel="stylesheet" href="/css/home.css">
-</head>
-<body>
-    <h1>Codeial home page</h1>
-
+<link rel="stylesheet" href="/css/home.css">
+<center><h4>Codial Home Page</h4></center>
+<div id="home-container">
     <%if(locals.user){%>
+
+
     <section id="post-form">
         <h4>Posts</h4>
         <form action="/posts/create" id="new=post-form" method="post">
@@ -15,44 +14,24 @@
     </section>
     <%}%>
 
-    <%if(locals.user){%>
-    <section id="post_feed">
-        <ul>
-            <% for(let post of posts){%>
-            <p>
-            <li>
-                <span> Name : <%= post.user.name %></span>
-                <br>
-                <span> Content: <%= post.content %></span>
 
-                <div class="post-comments">
-                    <form action="/comments/create" method="post">
-                        <input type="text" name="content" placeholder="Enter Your Comment" required>
-                        <input type="hidden" name="post" value="<%= post._id%>">
-                        <input type="submit" value="Add Comment">
-                    </form>
-                </div>
-
-                <div class="post-comments-list">
-                    <h3>Comments</h3>
-                    <ul id="post=comments-<%=post._id%>">
-                        <% for(comment of post.comments){%>
-                        <li>
-                            <p>
-                                <span>Name: <%=comment.user.name%></span>
-                                <br>
-                                <span>content: <%=comment.content%></span>
-                            </p>
-                        </li>
-                        <%}%>
-                    </ul>
-                </div>
-
-            </li>
-            </p>
-            <%}%>
-        </ul>
+    <section id="postsFeed">
+        <%if(locals.user){%>
+            <%- include('_post')-%>
+        <%}%>
     </section>
-    <%}%>
-</body>
-</html>
+
+
+    <section id="User-list">
+        <% if (locals.user){%> 
+            <ul>
+            <% for(user of users){%> 
+                <li>
+                    <a href="/user/profile/<%= user.id%>"><%= user.name%></a>
+                      
+                </li>              
+             <%}%>
+            </ul>
+        <%}%>
+    </section>
+</div>

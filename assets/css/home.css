@@ -1,20 +1,39 @@
-body {
-  background-color: lightcoral;
+#home-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: #62079b;
   color: whitesmoke;
-  text-align: center;
 }
 
-body #post_feed {
-  text-align: start;
+#home-container #post_feed {
+  width: 600px;
+  height: 100%;
+  padding: 10px;
 }
 
-body #post_feed ul {
+#home-container #post_feed ul {
   border: 2px white dashed;
 }
 
-body #post_feed ul li {
+#home-container #post_feed ul li {
   border: 2px brown solid;
   margin: 10px 3px;
   padding: 5px;
   padding-left: 10px;
+}
+
+#home-container #post-form {
+  width: 20%;
+  height: 100%;
+}
+
+#home-container #User-list {
+  width: 20%;
+  height: 100%;
+  padding: 10px;
+}
+
+#home-container #User-list a {
+  text-decoration: none;
+  color: whitesmoke;
 }

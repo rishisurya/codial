@@ -9,7 +9,7 @@ const passport = require('passport');
 const userController = require('../controllers/user_controller');
 
 
-router.get('/profile',passport.checkAuthentication,userController.profile);
+router.get('/profile/:id',passport.checkAuthentication,userController.profile);
 router.get('/signup',userController.signup);
 router.get('/signin',userController.signin);
 router.post('/create',userController.create);
@@ -21,8 +21,10 @@ router.post('/create-session', passport.authenticate(
     // successRedirect:'/user/profile'
 },
 ), userController.createSession);
+
 router.post('/signout',userController.signout);
 router.get('/signout',userController.signout);
+router.post('/update/:id',passport.checkAuthentication,userController.update);
 
 console.log('user router is loaded');
 module.exports = router;
