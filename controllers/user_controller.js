@@ -73,12 +73,14 @@ module.exports.create = function(request,response){
 
 // signin and create a session for user
 module.exports.createSession = function(request,response){
+    request.flash('success','Logged in successfully!');
     return response.redirect('/');
 };
 
 // handling signout
 module.exports.signout = function(request,response){
     request.logout();
+    request.flash('success','Signed Out!');
     return response.redirect('/');
 }
 

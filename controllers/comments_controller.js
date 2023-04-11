@@ -14,6 +14,7 @@ module.exports.create = function(request,response){
             .then((comment)=>{
                 post.comments.push(comment);
                 post.save();
+                request.flash('success','Comment published');
                 response.redirect('/')
             })
             .catch((err)=>{
@@ -34,8 +35,9 @@ module.exports.destroy = function(request,response){
         if(comment && comment.user == request.user.id){
             let postid = comment.post;
             comment.remove();
+            request.flash('error','Comment deleted');
             Post.findByIdAndUpdate('postid',{$pull:{comments:request.params.id}})
-            .then(()=>{return response.redirect('back')})
+            .then(()=>{ return response.redirect('back')})
             .catch((err)=>{return response.redirect('back')})
         }else{return response.redirect('back')}
     })

@@ -1,7 +1,7 @@
 const Post = require('../models/post');
 const User = require('../models/user');
 
-module.exports.home = function(request,response){
+module.exports.home = async function(request,response){
     // console.log(request.cookies);
     // to alter cookies
     //response.cookie('surya',100);
@@ -31,28 +31,49 @@ module.exports.home = function(request,response){
     // };
 
 
-    // nested-populating
-    Post.find({})
-    .populate('user')
-    .populate({
-        path:'comments',
-        populate:{
-            path:'user'
-        }
-    })
-     .then((post)=>{
-        User.find({}).then((users)=>{
+    // // nested-populating
+    // Post.find({})
+    // .populate('user')
+    // .populate({
+    //     path:'comments',
+    //     populate:{
+    //         path:'user'
+    //     }
+    // })
+    //  .then((post)=>{
+    //     User.find({}).then((users)=>{
+    //     return response.render('home',{
+    //         title:"Home Page",
+    //         posts: post,
+    //         users : users
+    //     })}).catch((err)=>{console.log("error in finding users"); return;})
+    // })
+    // .catch((err)=>{
+    //     console.log('Error in fetchting data drom db');
+    //      return ;
+    //     }
+    // )
+
+    //Async Await
+    try{
+        let post = await Post.find({})
+        .populate('user')
+        .populate({
+            path:'comments',
+            populate:{
+                path:'user'
+            }
+        });
+
+        let users = await User.find({});
+
         return response.render('home',{
             title:"Home Page",
             posts: post,
             users : users
-        })}).catch((err)=>{console.log("error in finding users"); return;})
-    })
-    .catch((err)=>{
-        console.log('Error in fetchting data drom db');
-         return ;
-        }
-    )
+        }) 
+    }catch(err){ console.log('Error',err); return;}
+
     };
 
 

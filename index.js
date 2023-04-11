@@ -26,6 +26,12 @@ const passportLocal = require('./config/passport-local-strategy');
 const mongoStore = require('connect-mongo')(session);
 const sassMiddileware = require('node-sass-middleware');
 
+//importing flash
+const flash = require('connect-flash');
+
+// import custom middileware
+const customMware = require('./config/middleware');
+
 app.use(sassMiddileware({
     src:'./assets/scss',
     dest:'./assets/css',
@@ -83,6 +89,12 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+//setting flash after session as it uses session coockies
+app.use(flash())
+
+// setting custom middileware
+app.use(customMware.setFlash);
 
 app.use(passport.setAuthenticatedUser)
 
