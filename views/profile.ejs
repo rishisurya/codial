@@ -2,14 +2,16 @@
     <link rel="stylesheet" href="/css/profile.css">
 </head>
 <body>
+    <center><h1>User Profile</h1></center>
+    <img src="<%= profile_user.avatar %>" alt="<%=  profile_user.name %>" width="300px" height="200px">
     <% if (user.id == profile_user.id){%>
-        <center><h1>User Profile</h1></center>
-        <form action="/user/update/<%=profile_user.id%>" method="post">
+        <form action="/user/update/<%=profile_user.id%>" enctype="multipart/form-data" method="post">
             <p>Name: <%= profile_user.name%></p>
             <input type="text" name="name" placeholder="Enter name" value="<%=profile_user.name%>" required>
             <p>Email: <%= profile_user.email%></p>
             <input type="email" name="email" placeholder="Enter Email" value="<%=profile_user.email%>" required>
             <br>
+            <input type="file" name="avatar" placeholder="Profile Picture">
             <input type="submit" value="Update">
         </form>
         <center>
@@ -18,7 +20,6 @@
             </form>
         </center>
     <%} else {%>
-        <center><h1>User Profile</h1></center>
         <p>Name: <%= profile_user.name%></p>
         <p>Email: <%= profile_user.email%></p>
     <%}%>   

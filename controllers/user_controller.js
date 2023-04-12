@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const path = require('path');
+const fs = require('fs');
 
 
 // // before profile
@@ -21,17 +23,51 @@ module.exports.profile = function(request,response){
 
 };
 
-module.exports.update = function(request,response){
-    if(request.user.id == request.params.id){
-        User.findByIdAndUpdate(request.params.id,{name:request.body.name, email:request.body.email})
-        .then((user)=>{
+// // before
+// module.exports.update = function(request,response){
+//     if(request.user.id == request.params.id){
+//         User.findByIdAndUpdate(request.params.id,{name:request.body.name, email:request.body.email})
+//         .then((user)=>{
+//             return response.redirect('back');
+//         })
+//         .catch((err)=>{
+//             return response.redirect('back');
+//         });
+//     }else{return response.status(401).send("unauthorised")}
+// };
+
+
+//  async await and avatar
+module.exports.update = async function(request,response){
+    if(request.user.id == request.params.id){    
+        try{
+            let user = await User.findById(request.params.id);
+
+            User.uploadAvatar(request,response,function(err){
+                if(err){console.log("Multer Error",err)}
+                user.name = request.body.name;
+                user.email = request.body.email;
+                if(request.file){
+
+                    if(user.avatar){
+                        fs.unlinkSync(path.join(__dirname,'..',user.avatar))
+                    }
+                    // this is saving the path od uploded avatar into avtar field in user
+                    user.avatar = User.avatarPath + '/' + request.file.filename
+                }
+                user.save();
+                return response.redirect('back');
+            });
+
+        }catch(err){
+            request.flash('error',err);
             return response.redirect('back');
-        })
-        .catch((err)=>{
-            return response.redirect('back');
-        });
-    }else{return response.status(401).send("unauthorised")}
-};
+        }
+    }else{
+        request.flash('error','unauthorized');
+        return response.status(401).send("unauthorised")
+        }
+    };
 
 
 

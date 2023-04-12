@@ -59,6 +59,9 @@ app.set('layout extractScripts',true);
 // acessing static files
 app.use(express.static('./assets'))
 
+// making the uploads path available to the browser
+app.use('/uploads',express.static(__dirname + '/uploads'));
+
 
 // setting ip the views
 app.set('view engine','ejs');
