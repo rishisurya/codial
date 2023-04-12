@@ -2,10 +2,10 @@
     <ul>
         <% for(let post of posts){%>
         <p>
-            <li>
+            <li id="post-<%= post._id%>">
                 <% if(locals.user && post.user.id == locals.user.id){%>
                     <small>
-                        <a href="/posts/destroy/<%= post.id %>">X</a>
+                        <a class="delete-post-button" href="/posts/destroy/<%= post.id %>">X</a>
                     </small>
                     <%}%>
                 <span> Name : <%= post.user.name %></span>
@@ -22,20 +22,9 @@
             
                 <div class="post-comments-list">
                     <h3>Comments</h3>
-                    <ul id="post=comments-<%=post._id%>">
+                    <ul id="post-comments-<%= post._id %>">
                         <% for(comment of post.comments){%>
-                        <li>
-                            <p>
-                                <% if(locals.user && comment.user.id == locals.user.id){%>
-                                    <small>
-                                        <a href="/comments/destroy/<%=comment.id%>">X</a>
-                                    </small>
-                                <%}%>
-                                <span>Name: <%=comment.user.name%></span>
-                                <br>
-                                <span>content: <%=comment.content%></span>
-                            </p>
-                        </li>
+                        <%- include('_comment')-%>
                         <%}%>
                     </ul>
                 </div>
