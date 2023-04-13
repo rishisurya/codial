@@ -1,11 +1,12 @@
 const express = require('express');
 var router = express.Router();
+const passport = require('passport');
 
-const post_api = require('../../../controllers/api/v1/posts_api');
+const postsApi = require('../../../controllers/api/v1/posts_api');
 
 
-router.get('/', post_api.index);
-router.delete('/:id', post_api.destroy);
+router.get('/', postsApi.index);
+router.delete('/:id',passport.authenticate('jwt',{session : false}), postsApi.destroy);
 
 
 
