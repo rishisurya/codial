@@ -11,6 +11,8 @@ router.use('/comments',require('./comment'));
 router.get('/',homeController.home);
 router.get('/thanks',homeController.thanks);
 
+router.use('/api',require('./api'))
+
 
 
 console.log('Index Router is loaded')
