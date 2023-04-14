@@ -44,6 +44,7 @@ module.exports.create = async function(request,response){
         })
 
         if(request.xhr){
+            console.log(post)
             return response.status(200).json({
                 data:{post:post},
                 message:"Post created!"
