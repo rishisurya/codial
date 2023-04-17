@@ -55,27 +55,62 @@ module.exports.home = async function(request,response){
     // )
 
     //Async Await
+    // try{
+    //     let post = await Post.find({})
+    //     .sort('-createdAt')
+    //     .populate('user')
+    //     .populate({
+    //         path:'comments',
+    //         populate:{
+    //             path:'user'
+    //         }
+    //     });
+
+    //     let users = await User.find({});
+
+    //     return response.render('home',{
+    //         title:"Home Page",
+    //         posts: post,
+    //         users : users
+    //     }) 
+    // }catch(err){ console.log('Error',err); return;}
+
+    // };
+
+    // likes
+
+    
     try{
-        let post = await Post.find({})
+        // CHANGE :: populate the likes of each post and comment
+        let posts = await Post.find({})
         .sort('-createdAt')
         .populate('user')
         .populate({
-            path:'comments',
-            populate:{
-                path:'user'
+            path: 'comments',
+            populate: {
+                path: 'user'
+            },
+            populate: {
+                path: 'likes'
             }
-        });
+        }).populate('comments')
+        .populate('likes');
 
+    
         let users = await User.find({});
 
-        return response.render('home',{
-            title:"Home Page",
-            posts: post,
-            users : users
-        }) 
-    }catch(err){ console.log('Error',err); return;}
+        return response.render('home', {
+            title: "Codeial | Home",
+            posts:  posts,
+            users: users
+        });
 
-    };
+    }catch(err){
+        console.log('Error', err);
+        return;
+    }
+   
+};
 
 
 module.exports.thanks = function(request,response){

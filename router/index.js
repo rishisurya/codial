@@ -6,7 +6,7 @@ const homeController = require('../controllers/home_controller');
 router.use('/user',require('./user'));
 router.use('/posts',require('./posts'));
 router.use('/comments',require('./comment'));
-
+router.use('/likes', require('./likes'));
 
 router.get('/',homeController.home);
 router.get('/thanks',homeController.thanks);

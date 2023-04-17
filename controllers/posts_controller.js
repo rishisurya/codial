@@ -53,8 +53,9 @@ module.exports.create = async function(request,response){
         request.flash('success','Post published');
         return response.redirect('back');
     }catch(err){
+        req.flash('error', err);
         console.log('Error in crating a post'); 
-        return;}
+        return response.redirect('back');}
 };
 
 
@@ -94,6 +95,12 @@ module.exports.destroy = async function(request,response){
         let post = await Post.findById(request.params.id)
 
         if(post.user == request.user.id){
+
+
+            // CHANGE :: delete the associated likes for the post and all its comments' likes too
+            await Like.deleteMany({likeable: post, onModel: 'Post'});
+            await Like.deleteMany({_id: {$in: post.comments}});
+
             post.remove();
             await Comment.deleteMany({post:request.params.id});
 
